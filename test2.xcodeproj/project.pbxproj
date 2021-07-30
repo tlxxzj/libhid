@@ -1,0 +1,327 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		99B9325326B282DC003A626B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9325226B282DC003A626B /* main.cpp */; };
+		99B9325B26B29AD5003A626B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B9325A26B29AD5003A626B /* IOKit.framework */; };
+		99B9325D26B29B56003A626B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B9325C26B29B56003A626B /* CoreFoundation.framework */; };
+		99B9326026B2B33C003A626B /* HIDDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9325E26B2B33C003A626B /* HIDDevice.cpp */; };
+		99B9326326B30C7D003A626B /* HIDManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9326126B30C7D003A626B /* HIDManager.cpp */; };
+		99B9326626B3190C003A626B /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9326426B3190C003A626B /* utils.cpp */; };
+		99B9326926B37604003A626B /* CFVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9326726B37604003A626B /* CFVector.cpp */; };
+		99B9326C26B3D1D0003A626B /* LogitechForceSteeringWheel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9326A26B3D1D0003A626B /* LogitechForceSteeringWheel.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		99B9324D26B282DC003A626B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		99B9324F26B282DC003A626B /* test2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test2; sourceTree = BUILT_PRODUCTS_DIR; };
+		99B9325226B282DC003A626B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		99B9325A26B29AD5003A626B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		99B9325C26B29B56003A626B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		99B9325E26B2B33C003A626B /* HIDDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HIDDevice.cpp; sourceTree = "<group>"; };
+		99B9325F26B2B33C003A626B /* HIDDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HIDDevice.h; sourceTree = "<group>"; };
+		99B9326126B30C7D003A626B /* HIDManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HIDManager.cpp; sourceTree = "<group>"; };
+		99B9326226B30C7D003A626B /* HIDManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HIDManager.h; sourceTree = "<group>"; };
+		99B9326426B3190C003A626B /* utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		99B9326526B3190C003A626B /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		99B9326726B37604003A626B /* CFVector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CFVector.cpp; sourceTree = "<group>"; };
+		99B9326826B37604003A626B /* CFVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFVector.h; sourceTree = "<group>"; };
+		99B9326A26B3D1D0003A626B /* LogitechForceSteeringWheel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LogitechForceSteeringWheel.cpp; sourceTree = "<group>"; };
+		99B9326B26B3D1D0003A626B /* LogitechForceSteeringWheel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogitechForceSteeringWheel.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		99B9324C26B282DC003A626B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99B9325D26B29B56003A626B /* CoreFoundation.framework in Frameworks */,
+				99B9325B26B29AD5003A626B /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		99B9324626B282DC003A626B = {
+			isa = PBXGroup;
+			children = (
+				99B9325126B282DC003A626B /* test2 */,
+				99B9325026B282DC003A626B /* Products */,
+				99B9325926B29AD5003A626B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		99B9325026B282DC003A626B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				99B9324F26B282DC003A626B /* test2 */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		99B9325126B282DC003A626B /* test2 */ = {
+			isa = PBXGroup;
+			children = (
+				99B9325226B282DC003A626B /* main.cpp */,
+				99B9326726B37604003A626B /* CFVector.cpp */,
+				99B9326826B37604003A626B /* CFVector.h */,
+				99B9326426B3190C003A626B /* utils.cpp */,
+				99B9326526B3190C003A626B /* utils.h */,
+				99B9326126B30C7D003A626B /* HIDManager.cpp */,
+				99B9326226B30C7D003A626B /* HIDManager.h */,
+				99B9325E26B2B33C003A626B /* HIDDevice.cpp */,
+				99B9325F26B2B33C003A626B /* HIDDevice.h */,
+				99B9326A26B3D1D0003A626B /* LogitechForceSteeringWheel.cpp */,
+				99B9326B26B3D1D0003A626B /* LogitechForceSteeringWheel.h */,
+			);
+			path = test2;
+			sourceTree = "<group>";
+		};
+		99B9325926B29AD5003A626B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				99B9325C26B29B56003A626B /* CoreFoundation.framework */,
+				99B9325A26B29AD5003A626B /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		99B9324E26B282DC003A626B /* test2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 99B9325626B282DC003A626B /* Build configuration list for PBXNativeTarget "test2" */;
+			buildPhases = (
+				99B9324B26B282DC003A626B /* Sources */,
+				99B9324C26B282DC003A626B /* Frameworks */,
+				99B9324D26B282DC003A626B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = test2;
+			productName = test2;
+			productReference = 99B9324F26B282DC003A626B /* test2 */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		99B9324726B282DC003A626B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					99B9324E26B282DC003A626B = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+				};
+			};
+			buildConfigurationList = 99B9324A26B282DC003A626B /* Build configuration list for PBXProject "test2" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 99B9324626B282DC003A626B;
+			productRefGroup = 99B9325026B282DC003A626B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				99B9324E26B282DC003A626B /* test2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		99B9324B26B282DC003A626B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99B9326326B30C7D003A626B /* HIDManager.cpp in Sources */,
+				99B9326926B37604003A626B /* CFVector.cpp in Sources */,
+				99B9325326B282DC003A626B /* main.cpp in Sources */,
+				99B9326026B2B33C003A626B /* HIDDevice.cpp in Sources */,
+				99B9326626B3190C003A626B /* utils.cpp in Sources */,
+				99B9326C26B3D1D0003A626B /* LogitechForceSteeringWheel.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		99B9325426B282DC003A626B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		99B9325526B282DC003A626B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		99B9325726B282DC003A626B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		99B9325826B282DC003A626B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		99B9324A26B282DC003A626B /* Build configuration list for PBXProject "test2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99B9325426B282DC003A626B /* Debug */,
+				99B9325526B282DC003A626B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		99B9325626B282DC003A626B /* Build configuration list for PBXNativeTarget "test2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99B9325726B282DC003A626B /* Debug */,
+				99B9325826B282DC003A626B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 99B9324726B282DC003A626B /* Project object */;
+}
