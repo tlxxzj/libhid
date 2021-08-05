@@ -19,19 +19,15 @@
 class HIDManager
 {
 public:
-    HIDManager(IOHIDOptionsType options = kIOHIDOptionsTypeNone);
+    HIDManager();
+    HIDManager(const HIDManager & hid_manager);
     ~HIDManager();
     
-    //std::vector<HIDDevice> get_devices();
     std::vector<HIDDevice> get_devices(int64_t vendor_id = 0, int64_t product_id = 0);
+    
 protected:
-    
-    IOHIDManagerRef manager;
-    IOHIDOptionsType options;
-    CFRunLoopRef run_loop;
-    CFStringRef loop_mode;
-private:
-    
+    class Impl;
+    std::shared_ptr<Impl> impl = nullptr;
 };
 
 #endif /* HIDManager_h */

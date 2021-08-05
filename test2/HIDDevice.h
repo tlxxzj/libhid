@@ -8,29 +8,35 @@
 #ifndef HIDDEVICE_H
 #define HIDDEVICE_H
 
+
+#include <memory>
+#include <type_traits>
 #include <stdio.h>
 
 #include <IOKit/hid/IOHIDLib.h>
 #include <IOKit/IOKitLib.h>
 
+#include "HIDReport.hpp"
+
 
 class HIDDevice {
+protected:
+    class Impl;
+    std::shared_ptr<Impl>impl = nullptr;
+
 public:
-    HIDDevice();
+    
+    using input_report_callback = std::function<void(HIDDevice, HIDReport)>;
+    
+    HIDDevice() = delete;
+    
+    HIDDevice(IOHIDDeviceRef device_ref);
     
     HIDDevice(const HIDDevice & hid_device);
     
-    HIDDevice(const IOHIDDeviceRef & device_ref);
+    HIDDevice(const std::shared_ptr<Impl> & impl);
     
     ~HIDDevice();
-    
-    void open();
-    
-    void read(uint8_t * data, size_t length);
-    
-    void write(const uint8_t * data, size_t length);
-    
-    std::string get_desc();
     
     std::string get_path();
     
@@ -50,27 +56,9 @@ public:
     
     int64_t get_max_output_report_size();
     
-    static void input_callback(void *             context,
-                               IOReturn           result,
-                               void *             sender,
-                               IOHIDReportType    report_type,
-                               uint32_t           report_id,
-                               uint8_t *          report,
-                               CFIndex            report_length);
+    void add_input_report_callback();
     
-protected:
-    void cf_retain();
-    
-    CFTypeRef get_device_property(const CFStringRef key);
-    
-    int64_t get_device_int_property(const CFStringRef key);
-    
-    std::string get_device_string_property(const CFStringRef key);
-    
-    IOHIDDeviceRef device_ref = nullptr;
-    
-    size_t max_input_length = 0;
-    uint8_t *input_data;
+    std::vector<uint8_t> get_report_descriptor();
     
 private:
 };

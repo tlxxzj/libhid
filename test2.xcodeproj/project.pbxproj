@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		997B7F3026B6E85D00FE6E46 /* CFSharedPointer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997B7F2E26B6E85D00FE6E46 /* CFSharedPointer.cpp */; };
 		99B9325326B282DC003A626B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9325226B282DC003A626B /* main.cpp */; };
 		99B9325B26B29AD5003A626B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B9325A26B29AD5003A626B /* IOKit.framework */; };
 		99B9325D26B29B56003A626B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B9325C26B29B56003A626B /* CoreFoundation.framework */; };
@@ -15,6 +16,12 @@
 		99B9326626B3190C003A626B /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9326426B3190C003A626B /* utils.cpp */; };
 		99B9326926B37604003A626B /* CFVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9326726B37604003A626B /* CFVector.cpp */; };
 		99B9326C26B3D1D0003A626B /* LogitechForceSteeringWheel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9326A26B3D1D0003A626B /* LogitechForceSteeringWheel.cpp */; };
+		99B9326F26B43384003A626B /* HIDReportDescriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9326D26B43384003A626B /* HIDReportDescriptor.cpp */; };
+		99B9327226B43929003A626B /* HIDUsage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B9327026B43929003A626B /* HIDUsage.cpp */; };
+		99B9328226B6BB5B003A626B /* libncurses.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B9328126B6BB3A003A626B /* libncurses.tbd */; };
+		99D3B60F26B7C70000A8B0BD /* HIDReport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99D3B60D26B7C70000A8B0BD /* HIDReport.cpp */; };
+		99D3B61226B935B500A8B0BD /* ThreadSafeQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99D3B61026B935B500A8B0BD /* ThreadSafeQueue.cpp */; };
+		99D3B61926BB77B700A8B0BD /* HIDDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99D3B61726BB77B700A8B0BD /* HIDDevice.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,9 +34,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		99B9327C26B54FF6003A626B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		997B7F2E26B6E85D00FE6E46 /* CFSharedPointer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CFSharedPointer.cpp; sourceTree = "<group>"; };
+		997B7F2F26B6E85D00FE6E46 /* CFSharedPointer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CFSharedPointer.hpp; sourceTree = "<group>"; };
 		99B9324F26B282DC003A626B /* test2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test2; sourceTree = BUILT_PRODUCTS_DIR; };
 		99B9325226B282DC003A626B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		99B9325A26B29AD5003A626B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
@@ -44,6 +63,18 @@
 		99B9326826B37604003A626B /* CFVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFVector.h; sourceTree = "<group>"; };
 		99B9326A26B3D1D0003A626B /* LogitechForceSteeringWheel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LogitechForceSteeringWheel.cpp; sourceTree = "<group>"; };
 		99B9326B26B3D1D0003A626B /* LogitechForceSteeringWheel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogitechForceSteeringWheel.h; sourceTree = "<group>"; };
+		99B9326D26B43384003A626B /* HIDReportDescriptor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HIDReportDescriptor.cpp; sourceTree = "<group>"; };
+		99B9326E26B43384003A626B /* HIDReportDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HIDReportDescriptor.h; sourceTree = "<group>"; };
+		99B9327026B43929003A626B /* HIDUsage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HIDUsage.cpp; sourceTree = "<group>"; };
+		99B9327126B43929003A626B /* HIDUsage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HIDUsage.h; sourceTree = "<group>"; };
+		99B9328126B6BB3A003A626B /* libncurses.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libncurses.tbd; path = usr/lib/libncurses.tbd; sourceTree = SDKROOT; };
+		99D3B60D26B7C70000A8B0BD /* HIDReport.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HIDReport.cpp; sourceTree = "<group>"; };
+		99D3B60E26B7C70000A8B0BD /* HIDReport.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HIDReport.hpp; sourceTree = "<group>"; };
+		99D3B61026B935B500A8B0BD /* ThreadSafeQueue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadSafeQueue.cpp; sourceTree = "<group>"; };
+		99D3B61126B935B500A8B0BD /* ThreadSafeQueue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ThreadSafeQueue.hpp; sourceTree = "<group>"; };
+		99D3B61526BA79BD00A8B0BD /* g29-report-descriptor.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "g29-report-descriptor.txt"; sourceTree = "<group>"; };
+		99D3B61726BB77B700A8B0BD /* HIDDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HIDDevice.cpp; sourceTree = "<group>"; };
+		99D3B61826BB77B700A8B0BD /* HIDDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HIDDevice.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +84,7 @@
 			files = (
 				99B9325D26B29B56003A626B /* CoreFoundation.framework in Frameworks */,
 				99B9325B26B29AD5003A626B /* IOKit.framework in Frameworks */,
+				99B9328226B6BB5B003A626B /* libncurses.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +111,7 @@
 		99B9325126B282DC003A626B /* test2 */ = {
 			isa = PBXGroup;
 			children = (
+				99D3B61626BB6ECC00A8B0BD /* hid */,
 				99B9325226B282DC003A626B /* main.cpp */,
 				99B9326726B37604003A626B /* CFVector.cpp */,
 				99B9326826B37604003A626B /* CFVector.h */,
@@ -87,9 +120,20 @@
 				99B9326126B30C7D003A626B /* HIDManager.cpp */,
 				99B9326226B30C7D003A626B /* HIDManager.h */,
 				99B9325E26B2B33C003A626B /* HIDDevice.cpp */,
+				99D3B61026B935B500A8B0BD /* ThreadSafeQueue.cpp */,
+				99D3B61126B935B500A8B0BD /* ThreadSafeQueue.hpp */,
+				99B9326D26B43384003A626B /* HIDReportDescriptor.cpp */,
+				99B9327026B43929003A626B /* HIDUsage.cpp */,
+				99B9327126B43929003A626B /* HIDUsage.h */,
+				99B9326E26B43384003A626B /* HIDReportDescriptor.h */,
 				99B9325F26B2B33C003A626B /* HIDDevice.h */,
 				99B9326A26B3D1D0003A626B /* LogitechForceSteeringWheel.cpp */,
 				99B9326B26B3D1D0003A626B /* LogitechForceSteeringWheel.h */,
+				997B7F2E26B6E85D00FE6E46 /* CFSharedPointer.cpp */,
+				997B7F2F26B6E85D00FE6E46 /* CFSharedPointer.hpp */,
+				99D3B60D26B7C70000A8B0BD /* HIDReport.cpp */,
+				99D3B60E26B7C70000A8B0BD /* HIDReport.hpp */,
+				99D3B61526BA79BD00A8B0BD /* g29-report-descriptor.txt */,
 			);
 			path = test2;
 			sourceTree = "<group>";
@@ -97,10 +141,28 @@
 		99B9325926B29AD5003A626B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				99B9328126B6BB3A003A626B /* libncurses.tbd */,
 				99B9325C26B29B56003A626B /* CoreFoundation.framework */,
 				99B9325A26B29AD5003A626B /* IOKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		99D3B61626BB6ECC00A8B0BD /* hid */ = {
+			isa = PBXGroup;
+			children = (
+				99D3B61B26BBABFB00A8B0BD /* macosx */,
+				99D3B61826BB77B700A8B0BD /* HIDDevice.h */,
+				99D3B61726BB77B700A8B0BD /* HIDDevice.cpp */,
+			);
+			path = hid;
+			sourceTree = "<group>";
+		};
+		99D3B61B26BBABFB00A8B0BD /* macosx */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = macosx;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -113,6 +175,7 @@
 				99B9324B26B282DC003A626B /* Sources */,
 				99B9324C26B282DC003A626B /* Frameworks */,
 				99B9324D26B282DC003A626B /* CopyFiles */,
+				99B9327C26B54FF6003A626B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -159,12 +222,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99B9326F26B43384003A626B /* HIDReportDescriptor.cpp in Sources */,
 				99B9326326B30C7D003A626B /* HIDManager.cpp in Sources */,
 				99B9326926B37604003A626B /* CFVector.cpp in Sources */,
+				99D3B61926BB77B700A8B0BD /* HIDDevice.cpp in Sources */,
 				99B9325326B282DC003A626B /* main.cpp in Sources */,
 				99B9326026B2B33C003A626B /* HIDDevice.cpp in Sources */,
+				99D3B61226B935B500A8B0BD /* ThreadSafeQueue.cpp in Sources */,
+				99D3B60F26B7C70000A8B0BD /* HIDReport.cpp in Sources */,
 				99B9326626B3190C003A626B /* utils.cpp in Sources */,
 				99B9326C26B3D1D0003A626B /* LogitechForceSteeringWheel.cpp in Sources */,
+				997B7F3026B6E85D00FE6E46 /* CFSharedPointer.cpp in Sources */,
+				99B9327226B43929003A626B /* HIDUsage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

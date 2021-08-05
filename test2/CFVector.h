@@ -17,6 +17,8 @@
 
 #include <map>
 
+#include <iostream>
+
 
 template<typename T, typename... Args>
 class CFVector: public std::vector<T>
@@ -28,57 +30,32 @@ template<typename T>
 class CFVector<T>: public std::vector<T>
 {
 public:
-    CFVector()
-    {
-        cf_set = nullptr;
-    }
-    
-    CFVector(const CFSetRef cf_set):
-    cf_set(cf_set)
+    CFVector(const CFSetRef cf_set)
     {
         if(cf_set)
         {
-            CFRetain(this->cf_set);
             size_t size = CFSetGetCount(cf_set);
             this->resize(size);
-            CFSetGetValues(cf_set, (const void **)this->data());
-        }
-    }
-    
-    ~CFVector()
-    {
-        if(cf_set)
-        {
+            CFSetGetValues(cf_set, (const void **)(this->data()));
             CFRelease(cf_set);
         }
     }
     
-protected:
-    CFSetRef cf_set = nullptr;
 };
-
 
 
 template<typename T1, typename T2>
 class CFVector<T1, T2>: public std::vector<T2>
 {
 public:
-    CFVector()
-    {
-        cf_set = nullptr;
-    }
-    
-    CFVector(const CFSetRef cf_set):
-    cf_set(cf_set)
+    CFVector(const CFSetRef cf_set)
     {
         if(cf_set)
         {
-            CFRetain(this->cf_set);
-            
             size_t size = CFSetGetCount(cf_set);
             std::vector<T1> cf_set_values(size);
-            CFSetGetValues(cf_set, (const void **)cf_set_values.data());
-            
+            CFSetGetValues(cf_set, (const void **)(cf_set_values.data()));
+            CFRelease(cf_set);
             this->reserve(size);
             for(auto value: cf_set_values)
             {
@@ -86,17 +63,6 @@ public:
             }
         }
     }
-    
-    ~CFVector()
-    {
-        if(cf_set)
-        {
-            CFRelease(cf_set);
-        }
-    }
-    
-protected:
-    CFSetRef cf_set = nullptr;
 };
 
 
