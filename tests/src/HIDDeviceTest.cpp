@@ -3,8 +3,8 @@
 
 #include <gtest/gtest.h>
 
-#include "libhid/HIDManager.h"
-#include "libhid/HIDDevice.h"
+#include "HidManager.h"
+#include "HidDevice.h"
 
 
 static void printReport(std::vector<uint8_t> report) {
@@ -15,9 +15,9 @@ static void printReport(std::vector<uint8_t> report) {
     std::cerr<<std::endl;
 }
 
-TEST(HIDDeviceTest, PropertiesTest) {
+TEST(HidDeviceTest, PropertiesTest) {
     using namespace libhid;
-    std::vector<std::shared_ptr<HIDDevice>> devices = libhid::HIDManager::getDevices();
+    std::vector<std::shared_ptr<HidDevice>> devices = libhid::HidManager::getDevices();
     for(auto &device: devices) {
         std::cout<<"----------------------------------------"<<std::endl;
         std::cout<<"Vendor ID: "<<device->vendorId()<<std::endl;
@@ -34,10 +34,15 @@ TEST(HIDDeviceTest, PropertiesTest) {
     }
 }
 
-
-TEST(HIDDeviceTest, getInputReportAsyncTest) {
+TEST(HidDeviceTest, getInputReportAsyncTest) {
     using namespace libhid;
-    auto devices = libhid::HIDManager::getDevices();
+    HidDeviceFilterArray filters = {
+        {
+            { kHidDeviceFilterVendorId, 0x05ac },
+            { kHidDeviceFilterProductId, 0x8302 }
+        }
+    };
+    auto devices = libhid::HidManager::getDevices(filters);
     for(auto & device: devices) {
         device->getInputReportAsync([&](std::vector<uint8_t> report){
             printReport(report);
@@ -49,9 +54,15 @@ TEST(HIDDeviceTest, getInputReportAsyncTest) {
     }
 }
 
-TEST(HIDDeviceTest, tryGetInputReportTest) {
+TEST(HidDeviceTest, tryGetInputReportTest) {
     using namespace libhid;
-    auto devices = libhid::HIDManager::getDevices();
+    HidDeviceFilterArray filters = {
+        {
+            {kHidDeviceFilterVendorId, 0x05ac},
+            {kHidDeviceFilterProductId, 0x8302}
+        }
+    };
+    auto devices = libhid::HidManager::getDevices(filters);
     for(auto & device: devices) {
         std::vector<uint8_t> report;
         bool result = device->tryGetInputReport(report, 0.1);

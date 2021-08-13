@@ -1,30 +1,29 @@
-
-#include <mach/mach_error.h>
-
-#include "HIDDeviceMac.h"
 #include <iostream>
 #include <iomanip>
 #include <thread>
 #include <chrono>
 #include <mutex>
 
+#include <mach/mach_error.h>
+
+#include "HidDeviceMac.h"
 
 namespace libhid {
-    HIDDeviceMac::HIDDeviceMac(const SharedCFTypeRef<IOHIDDeviceRef> & device_ref):
-    HIDDevice(true),
+    HidDeviceMac::HidDeviceMac(const SharedCFTypeRef<IOHIDDeviceRef> & device_ref):
+    HidDevice(true),
     m_device_ref(device_ref) {
         collectProperty();
         open();
     }
     
-    HIDDeviceMac::~HIDDeviceMac() {
+    HidDeviceMac::~HidDeviceMac() {
         close();
     }
 
-    bool HIDDeviceMac::open() {
+    bool HidDeviceMac::open() {
         if(!m_closed)
             return true;
-        IOReturn ret = IOHIDDeviceOpen(m_device_ref, kIOHIDOptionsTypeSeizeDevice);
+        IOReturn ret = IOHIDDeviceOpen(m_device_ref, kIOHIDOptionsTypeNone);
         if(ret != kIOReturnSuccess) {
             std::cerr<<"Failed to open device: "<<mach_error_string(ret)<<std::endl;
             return false;
@@ -35,10 +34,10 @@ namespace libhid {
             IOHIDDeviceRegisterInputReportCallback(m_device_ref,
                 m_input_report_buffer.data(),
                 m_input_report_buffer.size(),
-                &HIDDeviceMac::inputReportCallback,
+                &HidDeviceMac::inputReportCallback,
                 this);
         }
-        IOHIDDeviceRegisterRemovalCallback(m_device_ref, &HIDDeviceMac::deviceRemovalCallback, this);
+        IOHIDDeviceRegisterRemovalCallback(m_device_ref, &HidDeviceMac::deviceRemovalCallback, this);
         
         std::mutex run_loop_mutex;
         std::unique_lock<std::mutex> run_loop_ulock(run_loop_mutex);
@@ -57,7 +56,7 @@ namespace libhid {
         return true;
     }
 
-    bool HIDDeviceMac::close() {
+    bool HidDeviceMac::close() {
         if(m_closed)
             return true;
         if(m_input_report_buffer.size() > 0) {
@@ -78,11 +77,11 @@ namespace libhid {
         return true;
     }
 
-    SharedCFTypeRef<CFTypeRef> HIDDeviceMac::getProperty(CFStringRef key, bool retain) {
+    SharedCFTypeRef<CFTypeRef> HidDeviceMac::getProperty(CFStringRef key, bool retain) {
         return SharedCFTypeRef<CFTypeRef>(IOHIDDeviceGetProperty(m_device_ref, key), retain);
     }
 
-    int64_t HIDDeviceMac::getIntProperty(CFStringRef key)
+    int64_t HidDeviceMac::getIntProperty(CFStringRef key)
     {
         SharedCFTypeRef<CFTypeRef> ref = getProperty(key);
         int64_t value = 0;
@@ -92,7 +91,7 @@ namespace libhid {
         return value;
     }
 
-    std::string HIDDeviceMac::getStringProperty(CFStringRef key)
+    std::string HidDeviceMac::getStringProperty(CFStringRef key)
     {
         SharedCFTypeRef<CFTypeRef> ref = getProperty(key, true);
         std::string value;
@@ -108,7 +107,7 @@ namespace libhid {
         return value;
     }
 
-    void HIDDeviceMac::collectProperty() {
+    void HidDeviceMac::collectProperty() {
         m_vendor_id = getIntProperty(CFSTR(kIOHIDVendorIDKey));
         m_product_id = getIntProperty(CFSTR(kIOHIDProductIDKey));
         m_version_number = getIntProperty(CFSTR(kIOHIDVersionNumberKey));
@@ -122,7 +121,7 @@ namespace libhid {
         m_max_feature_report_size = getIntProperty(CFSTR(kIOHIDMaxFeatureReportSizeKey));
     }
 
-    std::vector<uint8_t> HIDDeviceMac::getFeatureReport(uint8_t report_id) {
+    std::vector<uint8_t> HidDeviceMac::getFeatureReport(uint8_t report_id) {
         std::vector<uint8_t> report(m_max_feature_report_size);
         CFIndex report_size = report.size();
         IOReturn result = IOHIDDeviceGetReport(m_device_ref, kIOHIDReportTypeFeature, report_id, report.data(), &report_size);
@@ -134,38 +133,54 @@ namespace libhid {
         return report;
     }
 
-    void HIDDeviceMac::sendOutputReport(std::vector<uint8_t> report) {
+    void HidDeviceMac::sendOutputReport(std::vector<uint8_t> report) {
         sendReport(kIOHIDReportTypeOutput, report);
     }
 
-    void HIDDeviceMac::sendFeatureReport(std::vector<uint8_t> report) {
+    void HidDeviceMac::sendFeatureReport(std::vector<uint8_t> report) {
         sendReport(kIOHIDReportTypeFeature, report);
     }
 
-    void HIDDeviceMac::sendReport(IOHIDReportType report_type, std::vector<uint8_t> report) {
-        IOReturn result = IOHIDDeviceSetReport(m_device_ref, report_type, report[0], report.data(), report.size());
+    void HidDeviceMac::sendReport(IOHIDReportType report_type, std::vector<uint8_t> report) {
+        uint8_t report_id = report[0];
+        uint8_t * report_data = report.data();
+        size_t report_size = report.size();
+        if(report_id == 0) {
+            ++report_data;
+            --report_size;
+        }
+        IOReturn result = IOHIDDeviceSetReport(m_device_ref, report_type, report_id, report_data, report_size);
         if(result != kIOReturnSuccess) {
-            std::cerr<<"Failed to send report("<<(int)(report[0])<<"): "<<mach_error_string(result)<<std::endl;
+            std::cerr<<"Failed to send report: "<<mach_error_string(result)<<std::endl;
         }
     }
     
     // static functions
 
-    void HIDDeviceMac::inputReportCallback(void* context,
+    void HidDeviceMac::inputReportCallback(void* context,
                                            IOReturn result,
                                            void* sender,
                                            IOHIDReportType type,
                                            uint32_t report_id,
                                            uint8_t * report_data,
                                            CFIndex report_size) {
-        std::shared_ptr<HIDDeviceMac> device = static_cast<HIDDeviceMac *>(context)->shared_from_this();
-        device->processInputReport(std::vector<uint8_t>(report_data, report_data + report_size));
+        std::shared_ptr<HidDeviceMac> device = static_cast<HidDeviceMac *>(context)->shared_from_this();
+        std::vector<uint8_t> report;
+        if(report_id == 0) {
+            report.resize(report_size + 1);
+            report[0] = 0u;
+            std::copy(report_data, report_data + report_size, &report[1]);
+        } else {
+            report.resize(report_size);
+            std::copy(report_data, report_data + report_size, &report[0]);
+        }
+        device->processInputReport(report);
     }
 
-    void HIDDeviceMac::deviceRemovalCallback(void * context,
+    void HidDeviceMac::deviceRemovalCallback(void * context,
                                              IOReturn result,
                                              void * sender) {
-        std::shared_ptr<HIDDeviceMac> device = static_cast<HIDDeviceMac *>(context)->shared_from_this();
+        std::shared_ptr<HidDeviceMac> device = static_cast<HidDeviceMac *>(context)->shared_from_this();
         device->close();
     }
 }

@@ -17,7 +17,7 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../src")
 
 add_executable(
     SharedCFTypeRefTest
-    mac/SharedCFTypeRefTest.cpp
+    src/mac/SharedCFTypeRefTest.cpp
 )
 
 target_link_libraries(
@@ -32,7 +32,7 @@ gtest_discover_tests(
 
 add_executable(
     SharedCFRunLoopTest
-    mac/SharedCFRunLoopTest.cpp
+    src/mac/SharedCFRunLoopTest.cpp
 )
 
 target_link_libraries(
@@ -49,7 +49,7 @@ gtest_discover_tests(
 
 add_executable(
     HIDManagerTest
-    HIDManagerTest.cpp
+    src/HIDManagerTest.cpp
 )
 
 target_link_libraries(
@@ -63,23 +63,23 @@ gtest_discover_tests(
 )
 
 add_executable(
-    HIDDeviceTest
-    HIDDeviceTest.cpp
+    HidDeviceTest
+    src/HidDeviceTest.cpp
 )
 
 target_link_libraries(
-    HIDDeviceTest
+    HidDeviceTest
     libhid
     gtest_main
 )
 
 gtest_discover_tests(
-    HIDDeviceTest
+    HidDeviceTest
 )
 
 add_executable(
     ThreadSafeQueueTest
-    ThreadSafeQueueTest.cpp
+    src/ThreadSafeQueueTest.cpp
 )
 
 target_link_libraries(
@@ -89,4 +89,20 @@ target_link_libraries(
 
 gtest_discover_tests(
     ThreadSafeQueueTest
+)
+
+add_executable(
+    G29Test
+    ../src/G29.cpp
+    src/G29Test.cpp
+)
+
+target_link_libraries(
+    G29Test
+    libhid
+    gtest_main
+)
+
+gtest_discover_tests(
+    G29Test
 )

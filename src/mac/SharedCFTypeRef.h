@@ -2,8 +2,10 @@
 #define SHAREDCFTYPEREF_H
 
 #include <vector>
-#include <CoreFoundation/CoreFoundation.h>
 #include <iostream>
+
+#include <CoreFoundation/CoreFoundation.h>
+
 
 namespace libhid {
     template<typename T>

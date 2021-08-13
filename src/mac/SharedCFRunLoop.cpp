@@ -1,10 +1,9 @@
-
+#include <iostream>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
 
 #include "SharedCFRunLoop.h"
-#include <iostream>
 
 namespace libhid {
 

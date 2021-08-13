@@ -4,52 +4,41 @@ cmake_minimum_required(VERSION 3.0)
 project(libhid VERSION 0.0.1)
 
 # specify the C++ standard
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-include_directories("/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
+#include_directories("/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks")
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 if(APPLE) 
     add_library(
-        libhid
+        ${CMAKE_PROJECT_NAME}
         STATIC
     )
 
     set_target_properties(
-        libhid
+        ${CMAKE_PROJECT_NAME}
         PROPERTIES PREFIX ""
     )
 
     target_sources(
-        libhid
+        ${CMAKE_PROJECT_NAME}
         PRIVATE
-        src/ThreadSafeQueue.h
-        src/mac/SharedCFTypeRef.h
-        src/mac/SharedCFRunLoop.cpp
-        src/mac/CFVector.h
+        src/HidReport.h
+        src/HidReport.cpp
+        src/HidDeviceFilter.cpp
+        src/HidDevice.cpp
+        src/mac/HidDeviceMac.cpp
         src/mac/HIDManager.cpp
-        src/HIDDevice.cpp
-        src/mac/HIDDeviceMac.cpp
+        src/mac/SharedCFRunLoop.cpp
     )
     
     target_link_libraries(
-        libhid
+        ${CMAKE_PROJECT_NAME}
         "-framework CoreFoundation"
         "-framework IOKit"
     )
 endif()
-
-add_executable(
-    main
-    main.cpp
-)
-
-target_link_libraries(
-    main
-    libhid
-)
 
 # add tests
 enable_testing()

@@ -1,50 +1,22 @@
 #ifndef G29_H
 #define G29_H
 
+#include <vector>
+#include <cstdint>
 
-struct HIDInputReportData {};
+#include "HidManager.h"
 
-struct G29InputReport: HIDInputReportData {
-    uint8_t report_id; /* 0x01 */
-    uint8_t x; /* 0x80 */
-    uint8_t y; /* 0x80 */
-    uint8_t z; /* 0x80 */
-    uint8_t rz; /* 0x80 */
-    uint8_t hatswitchandbuttons[3];
-    uint8_t rx;
-    uint8_t ry;
-    uint8_t unknown[33];
-    uint8_t wheel[2]; /*  */
-    uint8_t accelerator[2];
-    uint8_t brake[2];
-    uint8_t clutch[2];
-    uint8_t buttons2;
-    uint8_t unknown2[2];
-    uint8_t buttons3;
-    uint8_t unknown3[9];
-};
 
-struct G29State {
+namespace logitech {
+
+struct LogitechG29State {
     uint16_t wheel;
-    uint8_t wheel_left;
-    uint8_t wheel_right;
     
     uint16_t accelerator;
     uint16_t brake;
     uint16_t clutch;
 
-    /*
-    uint8_t dpad_up;
-    uint8_t dpad_up_right;
-    uint8_t dpad_right;
-    uint8_t dpad_right_down;
-    uint8_t dpad_down;
-    uint8_t dpad_down_left;
-    uint8_t dpad_left;
-    uint8_t dpad_left_up;
-    */
     uint8_t dpad;
-
     uint8_t cross;
     uint8_t square;
     uint8_t triangle;
@@ -56,15 +28,31 @@ struct G29State {
     uint8_t r1;
     uint8_t r2;
     uint8_t r3;
-
     uint8_t plus;
     uint8_t minus;
     
-    uint8_t optoins
+    uint8_t optoins;
     uint8_t share;
     uint8_t ps;
-
-    
+    uint8_t redDialEnter;
+    int8_t redDial;
 };
+
+
+class LogitechG29 {
+public:
+    static constexpr const char * name = "G29 Driving Force Racing Wheel";
+    static constexpr const int64_t vendorId = 0x046d;
+    static constexpr const int64_t productId = 0xc260;
+
+protected:
+    std::shared_ptr<libhid::HidDevice> mDevice;
+
+public:
+    LogitechG29(int32_t index = 0);
+    LogitechG29State getState();
+};
+
+}
 
 #endif

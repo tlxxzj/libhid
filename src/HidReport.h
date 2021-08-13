@@ -1,12 +1,6 @@
-//
-//  HIDReport.hpp
-//  test2
-//
-//  Created by Lang Tian on 2021/8/5.
-//
 
-#ifndef HIDReport_hpp
-#define HIDReport_hpp
+#ifndef HidReport_hpp
+#define HidReport_hpp
 
 
 #include <vector>
@@ -14,47 +8,50 @@
 
 namespace libhid {
 
+using HidReport = std::vector<uint8_t>;
+
 enum HidReportType {
     kInput = 0,
     kOutput,
     kFeature
 };
 
-class HIDReport{
+/*
+class HidReport{
 protected:
     HidReportType m_type = HidReportType::kInput;
     uint8_t m_id = 0;
     std::vector<uint8_t> m_data;
 
 public:
-    HIDReport() {};
+    HidReport() {};
     
-    HIDReport(HidReportType type, uint8_t id, uint8_t * data, size_t size):
+    HidReport(HidReportType type, uint8_t id, uint8_t * data, size_t size):
     m_type(type),
     m_id(id),
     m_data(data, data + size) {
     }
 
-    HIDReport(const HIDReport & other):
+    HidReport(const HidReport & other):
     m_type(other.m_type),
     m_id(other.m_id),
     m_data(other.m_data) {
     }
 
-    HIDReport(HIDReport && other):
+    HidReport(HidReport && other):
     m_type(other.m_type),
     m_id(other.m_id),
     m_data(std::move(other.m_data)) {
     }
 
-    HIDReport & operator=(const HIDReport & other) {
+    HidReport & operator=(const HidReport & other) {
         m_type = other.m_type;
         m_id = other.m_id;
         m_data = other.m_data;
         return *this;
     }
 
-    HIDReport & operator=(HIDReport && other) {
+    HidReport & operator=(HidReport && other) {
         m_type = other.m_type;
         m_id = other.m_id;
         m_data = std::move(other.m_data);
@@ -68,6 +65,7 @@ public:
     uint8_t * begin() { return m_data.data(); }
     uint8_t * end() { return m_data.data() + m_data.size(); }
 };
+*/
 
 }
 

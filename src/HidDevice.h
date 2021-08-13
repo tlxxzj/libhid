@@ -7,13 +7,12 @@
 #include <vector>
 #include <memory>
 
-#include "libhid/HIDReport.h"
 #include "ThreadSafeQueue.h"
-
+#include "HidReport.h"
 
 namespace libhid {
 
-class HIDDevice {
+class HidDevice {
 public:
     using ReportCallback = std::function<void(std::vector<uint8_t> report)>;
 
@@ -37,19 +36,19 @@ protected:
 
     ReportCallback m_input_report_callback;
     
-    HIDDevice(bool closed): m_closed(closed) {};
+    HidDevice(bool closed): m_closed(closed) {};
 
     virtual void processInputReport(std::vector<uint8_t> report);
 
 public:
     
-    HIDDevice() = delete;
-    HIDDevice(const HIDDevice &) = delete;
-    HIDDevice(HIDDevice &&) = delete;
-    HIDDevice & operator=(const HIDDevice &) = delete;
-    HIDDevice & operator=(HIDDevice &&) = delete;
+    HidDevice() = delete;
+    HidDevice(const HidDevice &) = delete;
+    HidDevice(HidDevice &&) = delete;
+    HidDevice & operator=(const HidDevice &) = delete;
+    HidDevice & operator=(HidDevice &&) = delete;
     
-    virtual ~HIDDevice() {};
+    virtual ~HidDevice() {};
 
     virtual bool close() = 0;
     

@@ -27,7 +27,8 @@ public:
 
     void clear() {
         std::lock_guard<std::mutex> lock(m_mutex);
-        m_queue.swap(std::queue<T>());
+        std::queue<T> q;
+        m_queue.swap(q);
     }
 
     void push(const T & item) {

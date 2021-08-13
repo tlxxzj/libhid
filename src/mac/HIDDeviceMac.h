@@ -5,8 +5,7 @@
 
 #include <IOKit/hid/IOHIDLib.h>
 
-#include "libhid/HIDDevice.h"
-#include "libhid/HIDReport.h"
+#include "HidDevice.h"
 #include "SharedCFTypeRef.h"
 #include "ThreadSafeQueue.h"
 
@@ -14,9 +13,9 @@
 namespace libhid {
 
 
-class HIDDeviceMac:
-    public HIDDevice,
-    public std::enable_shared_from_this<HIDDeviceMac> {
+class HidDeviceMac:
+    public HidDevice,
+    public std::enable_shared_from_this<HidDeviceMac> {
 
 protected:
     SharedCFTypeRef<IOHIDDeviceRef> m_device_ref;
@@ -27,10 +26,10 @@ protected:
 
     
 public:
-    HIDDeviceMac(const HIDDeviceMac &) = delete;
-    HIDDeviceMac & operator=(const HIDDeviceMac &) = delete;
-    HIDDeviceMac(const SharedCFTypeRef<IOHIDDeviceRef> & device_ref);
-    ~HIDDeviceMac();
+    HidDeviceMac(const HidDeviceMac &) = delete;
+    HidDeviceMac & operator=(const HidDeviceMac &) = delete;
+    HidDeviceMac(const SharedCFTypeRef<IOHIDDeviceRef> & device_ref);
+    ~HidDeviceMac();
 
     bool close() override;
 

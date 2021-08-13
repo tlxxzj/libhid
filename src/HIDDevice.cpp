@@ -1,13 +1,12 @@
 #include <future>
-
-#include "libhid/HIDDevice.h"
-
 #include <iostream>
 #include <iomanip>
 
+#include "HidDevice.h"
+
 namespace libhid {
 
-    void HIDDevice::processInputReport(std::vector<uint8_t> report) {
+    void HidDevice::processInputReport(std::vector<uint8_t> report) {
         if(m_input_report_callback) {
             m_input_report_callback(report);
         } else {
@@ -19,15 +18,15 @@ namespace libhid {
         }
     }
 
-    std::vector<uint8_t> HIDDevice::getInputReport() {
+    std::vector<uint8_t> HidDevice::getInputReport() {
         return m_pending_input_reports.pop();
     }
 
-    bool HIDDevice::tryGetInputReport(std::vector<uint8_t> & report, double timeout_in_seconds) {
+    bool HidDevice::tryGetInputReport(std::vector<uint8_t> & report, double timeout_in_seconds) {
         return m_pending_input_reports.tryPop(report, timeout_in_seconds);
     }
 
-    void HIDDevice::getInputReportAsync(ReportCallback callback) {
+    void HidDevice::getInputReportAsync(ReportCallback callback) {
         m_pending_input_reports.clear();
         m_input_report_callback = callback;
     }
