@@ -9,25 +9,27 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
 
+set(LIBHID_PROJECT_NAME libhid)
+
 add_library(
-    ${CMAKE_PROJECT_NAME}
+    ${LIBHID_PROJECT_NAME}
     STATIC
 )
 
 set_target_properties(
-    ${CMAKE_PROJECT_NAME}
+    ${LIBHID_PROJECT_NAME}
     PROPERTIES PREFIX ""
 )
 
 if(APPLE) 
     target_include_directories(
-        ${CMAKE_PROJECT_NAME}
+        ${LIBHID_PROJECT_NAME}
         PUBLIC
         "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
     )
 
     target_sources(
-        ${CMAKE_PROJECT_NAME}
+        ${LIBHID_PROJECT_NAME}
         PRIVATE
         src/HidReport.cpp
         src/HidDeviceFilter.cpp
@@ -37,7 +39,7 @@ if(APPLE)
     )
     
     target_link_libraries(
-        ${CMAKE_PROJECT_NAME}
+        ${LIBHID_PROJECT_NAME}
         "-framework CoreFoundation"
         "-framework IOKit"
     )
