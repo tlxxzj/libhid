@@ -9,9 +9,9 @@
 #include "HidDeviceMac.h"
 
 namespace libhid {
-    HidDeviceMac::HidDeviceMac(const SharedCFTypeRef<IOHIDDeviceRef> & device_ref):
+    HidDeviceMac::HidDeviceMac(const SharedCFTypeRef<IOHIDDeviceRef> & deviceRef):
     HidDevice(true),
-    m_device_ref(device_ref) {
+    m_deviceRef(deviceRef) {
         collectProperty();
         open();
     }
@@ -23,33 +23,33 @@ namespace libhid {
     bool HidDeviceMac::open() {
         if(!m_closed)
             return true;
-        IOReturn ret = IOHIDDeviceOpen(m_device_ref, kIOHIDOptionsTypeNone);
+        IOReturn ret = IOHIDDeviceOpen(m_deviceRef, kIOHIDOptionsTypeNone);
         if(ret != kIOReturnSuccess) {
             std::cerr<<"Failed to open device: "<<mach_error_string(ret)<<std::endl;
             return false;
         }
         
-        m_input_report_buffer.resize(maxInputReportSize());
-        if(m_input_report_buffer.size() > 0) {
-            IOHIDDeviceRegisterInputReportCallback(m_device_ref,
-                m_input_report_buffer.data(),
-                m_input_report_buffer.size(),
+        m_inputReportBuffer.resize(maxInputReportSize());
+        if(m_inputReportBuffer.size() > 0) {
+            IOHIDDeviceRegisterInputReportCallback(m_deviceRef,
+                m_inputReportBuffer.data(),
+                m_inputReportBuffer.size(),
                 &HidDeviceMac::inputReportCallback,
                 this);
         }
-        IOHIDDeviceRegisterRemovalCallback(m_device_ref, &HidDeviceMac::deviceRemovalCallback, this);
+        IOHIDDeviceRegisterRemovalCallback(m_deviceRef, &HidDeviceMac::deviceRemovalCallback, this);
         
-        std::mutex run_loop_mutex;
-        std::unique_lock<std::mutex> run_loop_ulock(run_loop_mutex);
-        std::condition_variable run_loop_cv;
-        m_run_loop_future = std::async(std::launch::async, [&](){
-            m_run_loop_ref = SharedCFTypeRef<CFRunLoopRef>(CFRunLoopGetCurrent(), true);
-            IOHIDDeviceScheduleWithRunLoop(m_device_ref, m_run_loop_ref, kCFRunLoopDefaultMode);
-            run_loop_cv.notify_one();
+        std::mutex runLoopMutex;
+        std::unique_lock<std::mutex> runLoopLock(runLoopMutex);
+        std::condition_variable runLoopCv;
+        m_runLoopFuture = std::async(std::launch::async, [&](){
+            m_runLoopRef = SharedCFTypeRef<CFRunLoopRef>(CFRunLoopGetCurrent(), true);
+            IOHIDDeviceScheduleWithRunLoop(m_deviceRef, m_runLoopRef, kCFRunLoopDefaultMode);
+            runLoopCv.notify_one();
             CFRunLoopRun();
         });
-        run_loop_cv.wait(run_loop_ulock, [&](){
-            return m_run_loop_ref.get() != nullptr;
+        runLoopCv.wait(runLoopLock, [&](){
+            return m_runLoopRef.get() != nullptr;
         });
         
         m_closed = false;
@@ -59,16 +59,16 @@ namespace libhid {
     bool HidDeviceMac::close() {
         if(m_closed)
             return true;
-        if(m_input_report_buffer.size() > 0) {
-            IOHIDDeviceRegisterInputReportCallback(m_device_ref,
-                m_input_report_buffer.data(),
-                m_input_report_buffer.size(),
+        if(m_inputReportBuffer.size() > 0) {
+            IOHIDDeviceRegisterInputReportCallback(m_deviceRef,
+                m_inputReportBuffer.data(),
+                m_inputReportBuffer.size(),
                 nullptr,
                 nullptr);
         }
-        IOHIDDeviceUnscheduleFromRunLoop(m_device_ref, m_run_loop_ref, kCFRunLoopDefaultMode);
-        CFRunLoopStop(m_run_loop_ref);
-        IOReturn ret = IOHIDDeviceClose(m_device_ref, kIOHIDOptionsTypeNone);
+        IOHIDDeviceUnscheduleFromRunLoop(m_deviceRef, m_runLoopRef, kCFRunLoopDefaultMode);
+        CFRunLoopStop(m_runLoopRef);
+        IOReturn ret = IOHIDDeviceClose(m_deviceRef, kIOHIDOptionsTypeNone);
         if(ret != kIOReturnSuccess) {
             std::cerr<<"Failed to close device: "<<mach_error_string(ret)<<std::endl;
             //return;
@@ -78,7 +78,7 @@ namespace libhid {
     }
 
     SharedCFTypeRef<CFTypeRef> HidDeviceMac::getProperty(CFStringRef key, bool retain) {
-        return SharedCFTypeRef<CFTypeRef>(IOHIDDeviceGetProperty(m_device_ref, key), retain);
+        return SharedCFTypeRef<CFTypeRef>(IOHIDDeviceGetProperty(m_deviceRef, key), retain);
     }
 
     int64_t HidDeviceMac::getIntProperty(CFStringRef key)
@@ -96,40 +96,40 @@ namespace libhid {
         SharedCFTypeRef<CFTypeRef> ref = getProperty(key, true);
         std::string value;
         if(ref) {
-            CFStringRef str_ref = (CFStringRef)(ref.get());
-            CFRange range = CFRangeMake(0, CFStringGetLength(str_ref));
+            CFStringRef strRef = (CFStringRef)(ref.get());
+            CFRange range = CFRangeMake(0, CFStringGetLength(strRef));
             CFIndex max_buf_len = 0;
             // get max_buf_len
-            CFStringGetBytes(str_ref, range, kCFStringEncodingUTF8, '?', false, nullptr, 0, &max_buf_len);
+            CFStringGetBytes(strRef, range, kCFStringEncodingUTF8, '?', false, nullptr, 0, &max_buf_len);
             value.resize(max_buf_len);
-            CFStringGetBytes(str_ref, range, kCFStringEncodingUTF8, '?', false, (uint8_t *)value.data(), max_buf_len, &max_buf_len);
+            CFStringGetBytes(strRef, range, kCFStringEncodingUTF8, '?', false, (uint8_t *)value.data(), max_buf_len, &max_buf_len);
         }
         return value;
     }
 
     void HidDeviceMac::collectProperty() {
-        m_vendor_id = getIntProperty(CFSTR(kIOHIDVendorIDKey));
-        m_product_id = getIntProperty(CFSTR(kIOHIDProductIDKey));
-        m_version_number = getIntProperty(CFSTR(kIOHIDVersionNumberKey));
+        m_vendorId = getIntProperty(CFSTR(kIOHIDVendorIDKey));
+        m_productId = getIntProperty(CFSTR(kIOHIDProductIDKey));
+        m_versionNumber = getIntProperty(CFSTR(kIOHIDVersionNumberKey));
         
-        m_serial_number = getStringProperty(CFSTR(kIOHIDSerialNumberKey));
+        m_serialNumber = getStringProperty(CFSTR(kIOHIDSerialNumberKey));
         m_product = getStringProperty(CFSTR(kIOHIDProductKey));
         m_manufacturer = getStringProperty(CFSTR(kIOHIDManufacturerKey));
         
-        m_max_input_report_size = getIntProperty(CFSTR(kIOHIDMaxInputReportSizeKey));
-        m_max_output_report_size = getIntProperty(CFSTR(kIOHIDMaxOutputReportSizeKey));
-        m_max_feature_report_size = getIntProperty(CFSTR(kIOHIDMaxFeatureReportSizeKey));
+        m_maxInputReportSize = getIntProperty(CFSTR(kIOHIDMaxInputReportSizeKey));
+        m_maxOutputReportSize = getIntProperty(CFSTR(kIOHIDMaxOutputReportSizeKey));
+        m_maxFeatureReportSize = getIntProperty(CFSTR(kIOHIDMaxFeatureReportSizeKey));
     }
 
-    HidReport HidDeviceMac::getFeatureReport(uint8_t report_id) {
-        HidReport report(m_max_feature_report_size);
-        CFIndex report_size = report.size();
-        IOReturn result = IOHIDDeviceGetReport(m_device_ref, kIOHIDReportTypeFeature, report_id, report.data(), &report_size);
+    HidReport HidDeviceMac::getFeatureReport(uint8_t reportId) {
+        HidReport report(m_maxFeatureReportSize);
+        CFIndex reportSize = report.size();
+        IOReturn result = IOHIDDeviceGetReport(m_deviceRef, kIOHIDReportTypeFeature, reportId, report.data(), &reportSize);
         if(result != kIOReturnSuccess) {
-            std::cerr<<"Failed to get feature report("<<(int)report_id<<"): "<<mach_error_string(result)<<std::endl;
-            report_size = 0;
+            std::cerr<<"Failed to get feature report("<<(int)reportId<<"): "<<mach_error_string(result)<<std::endl;
+            reportSize = 0;
         }
-        report.resize(report_size);
+        report.resize(reportSize);
         return report;
     }
 
@@ -141,15 +141,15 @@ namespace libhid {
         sendReport(kIOHIDReportTypeFeature, report);
     }
 
-    void HidDeviceMac::sendReport(IOHIDReportType report_type, HidReport report) {
-        uint8_t report_id = report[0];
-        uint8_t * report_data = report.data();
-        size_t report_size = report.size();
-        if(report_id == 0) {
-            ++report_data;
-            --report_size;
+    void HidDeviceMac::sendReport(IOHIDReportType reportType, HidReport report) {
+        uint8_t reportId = report[0];
+        uint8_t * reportData = report.data();
+        size_t reportSize = report.size();
+        if(reportId == 0) {
+            ++reportData;
+            --reportSize;
         }
-        IOReturn result = IOHIDDeviceSetReport(m_device_ref, report_type, report_id, report_data, report_size);
+        IOReturn result = IOHIDDeviceSetReport(m_deviceRef, reportType, reportId, reportData, reportSize);
         if(result != kIOReturnSuccess) {
             std::cerr<<"Failed to send report: "<<mach_error_string(result)<<std::endl;
         }
@@ -161,18 +161,18 @@ namespace libhid {
                                            IOReturn result,
                                            void* sender,
                                            IOHIDReportType type,
-                                           uint32_t report_id,
-                                           uint8_t * report_data,
-                                           CFIndex report_size) {
+                                           uint32_t reportId,
+                                           uint8_t * reportData,
+                                           CFIndex reportSize) {
         std::shared_ptr<HidDeviceMac> device = static_cast<HidDeviceMac *>(context)->shared_from_this();
         HidReport report;
-        if(report_id == 0) {
-            report.resize(report_size + 1);
+        if(reportId == 0) {
+            report.resize(reportSize + 1);
             report[0] = 0u;
-            std::copy(report_data, report_data + report_size, &report[1]);
+            std::copy(reportData, reportData + reportSize, &report[1]);
         } else {
-            report.resize(report_size);
-            std::copy(report_data, report_data + report_size, &report[0]);
+            report.resize(reportSize);
+            std::copy(reportData, reportData + reportSize, &report[0]);
         }
         device->processInputReport(report);
     }

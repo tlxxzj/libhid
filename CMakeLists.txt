@@ -34,7 +34,6 @@ if(APPLE)
         src/HidDevice.cpp
         src/mac/HidDeviceMac.cpp
         src/mac/HidManager.cpp
-        src/mac/SharedCFRunLoop.cpp
     )
     
     target_link_libraries(

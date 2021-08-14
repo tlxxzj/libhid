@@ -19,22 +19,22 @@ public:
 protected:
     bool m_closed = true;
 
-    int64_t m_vendor_id = 0;
-    int64_t m_product_id = 0;
-    int64_t m_version_number = 0;
+    int64_t m_vendorId = 0;
+    int64_t m_productId = 0;
+    int64_t m_versionNumber = 0;
     
     std::string m_product;
     std::string m_manufacturer;
-    std::string m_serial_number;
+    std::string m_serialNumber;
 
-    size_t m_max_input_report_size = 0;
-    size_t m_max_output_report_size = 0;
-    size_t m_max_feature_report_size = 0;
+    size_t m_maxInputReportSize = 0;
+    size_t m_maxOutputReportSize = 0;
+    size_t m_maxFeatureReportSize = 0;
 
-    std::vector<uint8_t> m_input_report_buffer;
-    ThreadSafeQueue<HidReport> m_pending_input_reports;
+    std::vector<uint8_t> m_inputReportBuffer;
+    ThreadSafeQueue<HidReport> m_pendingInputReports;
 
-    ReportCallback m_input_report_callback;
+    ReportCallback m_inputReportCallback;
     
     HidDevice(bool closed): m_closed(closed) {};
 
@@ -55,24 +55,24 @@ public:
     bool opened() { return !m_closed; }
     bool closed() { return m_closed; }
     
-    int64_t vendorId() { return m_vendor_id; }
-    int64_t productId() { return m_product_id; }
-    int64_t versionNumber() { return m_version_number; }
+    int64_t vendorId() { return m_vendorId; }
+    int64_t productId() { return m_productId; }
+    int64_t versionNumber() { return m_versionNumber; }
     
     std::string product() { return m_product; }
     std::string manufacturer() { return m_manufacturer; }
-    std::string serialNumber() { return m_serial_number; }
+    std::string serialNumber() { return m_serialNumber; }
 
-    size_t maxInputReportSize() { return m_max_input_report_size; }
-    size_t maxOutputReportSize() { return m_max_output_report_size; }
-    size_t maxFeatureReportSize() { return m_max_feature_report_size; }
+    size_t maxInputReportSize() { return m_maxInputReportSize; }
+    size_t maxOutputReportSize() { return m_maxOutputReportSize; }
+    size_t maxFeatureReportSize() { return m_maxFeatureReportSize; }
 
     virtual HidReport getInputReport();
-    virtual bool tryGetInputReport(HidReport & report, double timeout_in_seconds = 0);
+    virtual bool tryGetInputReport(HidReport & report, double timeoutInSeconds = 0);
     virtual void getInputReportAsync(ReportCallback callback);
     virtual void sendOutputReport(HidReport report) = 0;
     virtual void sendFeatureReport(HidReport report) = 0;
-    virtual HidReport getFeatureReport(uint8_t report_id) = 0;
+    virtual HidReport getFeatureReport(uint8_t reportId) = 0;
 };
 
 

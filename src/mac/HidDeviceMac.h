@@ -17,9 +17,9 @@ class HidDeviceMac:
     public std::enable_shared_from_this<HidDeviceMac> {
 
 protected:
-    SharedCFTypeRef<IOHIDDeviceRef> m_device_ref;
-    SharedCFTypeRef<CFRunLoopRef> m_run_loop_ref;
-    std::future<void> m_run_loop_future;
+    SharedCFTypeRef<IOHIDDeviceRef> m_deviceRef;
+    SharedCFTypeRef<CFRunLoopRef> m_runLoopRef;
+    std::future<void> m_runLoopFuture;
 
     bool open();
 
@@ -27,14 +27,14 @@ protected:
 public:
     HidDeviceMac(const HidDeviceMac &) = delete;
     HidDeviceMac & operator=(const HidDeviceMac &) = delete;
-    HidDeviceMac(const SharedCFTypeRef<IOHIDDeviceRef> & device_ref);
+    HidDeviceMac(const SharedCFTypeRef<IOHIDDeviceRef> & deviceRef);
     ~HidDeviceMac();
 
     bool close() override;
 
     void sendOutputReport(HidReport report) override;
     
-    HidReport getFeatureReport(uint8_t report_id) override;
+    HidReport getFeatureReport(uint8_t reportId) override;
     void sendFeatureReport(HidReport report) override;
 
 protected:
@@ -42,7 +42,7 @@ protected:
     int64_t getIntProperty(CFStringRef key);
     std::string getStringProperty(CFStringRef key);
     
-    void sendReport(IOHIDReportType report_type, HidReport report);
+    void sendReport(IOHIDReportType reportType, HidReport report);
     
     void collectProperty();
 
@@ -50,9 +50,9 @@ protected:
                                     IOReturn result,
                                     void* sender,
                                     IOHIDReportType type,
-                                    uint32_t report_id,
-                                    uint8_t * report_data,
-                                    CFIndex report_size);
+                                    uint32_t reportId,
+                                    uint8_t * reportData,
+                                    CFIndex reportSize);
     
     static void deviceRemovalCallback(void * context,
                                       IOReturn result,

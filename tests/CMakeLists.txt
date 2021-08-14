@@ -30,20 +30,6 @@ gtest_discover_tests(
 )
 
 add_executable(
-    SharedCFRunLoopTest
-    src/mac/SharedCFRunLoopTest.cpp
-)
-target_link_libraries(
-    SharedCFRunLoopTest
-    libhid
-    gtest_main
-)
-gtest_discover_tests(
-    SharedCFRunLoopTest
-)
-
-
-add_executable(
     HIDManagerTest
     src/HIDManagerTest.cpp
 )

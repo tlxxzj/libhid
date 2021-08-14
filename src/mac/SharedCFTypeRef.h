@@ -11,65 +11,65 @@ namespace libhid {
     template<typename T>
     class SharedCFTypeRef {
         protected:
-            T m_ref = nullptr;
+            T mRef = nullptr;
         
         public:
 
             SharedCFTypeRef(T ref = nullptr, bool retain = false):
-            m_ref(ref) {
+            mRef(ref) {
                 if(ref && retain)
-                    CFRetain(m_ref);
+                    CFRetain(mRef);
             }
 
             SharedCFTypeRef(const SharedCFTypeRef<T> & other):
-            m_ref(other.m_ref) {
-                if(m_ref)
-                    CFRetain(m_ref);
+            mRef(other.mRef) {
+                if(mRef)
+                    CFRetain(mRef);
             }
 
             SharedCFTypeRef(SharedCFTypeRef<T> && other):
-            m_ref(other.m_ref) {
-                other.m_ref = nullptr;
+            mRef(other.mRef) {
+                other.mRef = nullptr;
             }
 
             SharedCFTypeRef & operator=(const SharedCFTypeRef<T> & other) {
-                if(other.m_ref)
-                    CFRetain(other.m_ref);
-                if(m_ref)
-                    CFRelease(m_ref);
-                m_ref = other.m_ref;
+                if(other.mRef)
+                    CFRetain(other.mRef);
+                if(mRef)
+                    CFRelease(mRef);
+                mRef = other.mRef;
                 return *this;
             }
 
             SharedCFTypeRef & operator=(SharedCFTypeRef<T> && other) {
-                if(m_ref != other.m_ref) {
-                    if(m_ref)
-                        CFRelease(m_ref);
-                    m_ref = other.m_ref;
-                    other.m_ref = nullptr;
+                if(mRef != other.mRef) {
+                    if(mRef)
+                        CFRelease(mRef);
+                    mRef = other.mRef;
+                    other.mRef = nullptr;
                 }
                 return *this;
             }
 
             ~SharedCFTypeRef() {
-                if(m_ref) {
+                if(mRef) {
                     //std::cerr<<"Retain Count: "<<getRetainCount()<<std::endl;
-                    CFRelease(m_ref);
+                    CFRelease(mRef);
                 }
             }
 
             T get() {
-                return m_ref;
+                return mRef;
             }
 
             int64_t getRetainCount() {
-                if(m_ref)
-                    return CFGetRetainCount(m_ref);
+                if(mRef)
+                    return CFGetRetainCount(mRef);
                 return 0;
             }
 
             operator T() {
-                return m_ref;
+                return mRef;
             }
     };
 }

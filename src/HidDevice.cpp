@@ -3,27 +3,27 @@
 namespace libhid {
 
     void HidDevice::processInputReport(HidReport report) {
-        if(m_input_report_callback) {
-            m_input_report_callback(report);
+        if(m_inputReportCallback) {
+            m_inputReportCallback(report);
         } else {
-            if(m_pending_input_reports.size() >= 100) {
-                HidReport tmp_reoprt;
-                m_pending_input_reports.tryPop(tmp_reoprt, 0);
+            if(m_pendingInputReports.size() >= 100) {
+                HidReport tmpReoprt;
+                m_pendingInputReports.tryPop(tmpReoprt, 0);
             }
-            m_pending_input_reports.push(std::move(report));
+            m_pendingInputReports.push(std::move(report));
         }
     }
 
     HidReport HidDevice::getInputReport() {
-        return m_pending_input_reports.pop();
+        return m_pendingInputReports.pop();
     }
 
-    bool HidDevice::tryGetInputReport(HidReport & report, double timeout_in_seconds) {
-        return m_pending_input_reports.tryPop(report, timeout_in_seconds);
+    bool HidDevice::tryGetInputReport(HidReport & report, double timeoutInSeconds) {
+        return m_pendingInputReports.tryPop(report, timeoutInSeconds);
     }
 
     void HidDevice::getInputReportAsync(ReportCallback callback) {
-        m_pending_input_reports.clear();
-        m_input_report_callback = callback;
+        m_pendingInputReports.clear();
+        m_inputReportCallback = callback;
     }
 }
