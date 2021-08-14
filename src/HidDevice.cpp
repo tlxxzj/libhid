@@ -1,4 +1,4 @@
-#include "HidDevice.h"
+#include "libhid/HidDevice.h"
 
 namespace libhid {
 

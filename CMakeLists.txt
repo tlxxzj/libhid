@@ -7,7 +7,6 @@ project(libhid VERSION 0.0.1)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-include_directories("/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 add_library(
@@ -20,7 +19,19 @@ set_target_properties(
     PROPERTIES PREFIX ""
 )
 
+target_include_directories(
+    ${CMAKE_PROJECT_NAME}
+    PUBLIC
+    "${CMAKE_CURRENT_SOURCE_DIR}/include"
+)
+
 if(APPLE) 
+    target_include_directories(
+        ${CMAKE_PROJECT_NAME}
+        PUBLIC
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
+    )
+
     target_sources(
         ${CMAKE_PROJECT_NAME}
         PRIVATE

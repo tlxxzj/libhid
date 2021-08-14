@@ -1,5 +1,5 @@
 
-#include "HidReport.h"
+#include "libhid/HidReport.h"
 
 namespace libhid {
 

@@ -6,9 +6,9 @@
 #include <IOKit/hid/IOHIDLib.h>
 #include <IOKit/IOKitLib.h>
 
+#include "libhid/HidManager.h"
 #include "SharedCFTypeRef.h"
 #include "CFVector.h"
-#include "HidManager.h"
 #include "HidDeviceMac.h"
 
 

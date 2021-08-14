@@ -3,8 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "HidManager.h"
-#include "HidDevice.h"
+#include <libhid/LibHid.h>
 
 #include "G29.h"
 

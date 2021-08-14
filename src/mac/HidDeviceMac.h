@@ -5,9 +5,9 @@
 
 #include <IOKit/hid/IOHIDLib.h>
 
-#include "HidDevice.h"
+#include "libhid/HidDevice.h"
 #include "SharedCFTypeRef.h"
-#include "ThreadSafeQueue.h"
+#include "../ThreadSafeQueue.h"
 
 
 namespace libhid {

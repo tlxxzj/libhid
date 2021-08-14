@@ -13,19 +13,18 @@ FetchContent_MakeAvailable(googletest)
 
 include(GoogleTest)
 
+
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../src")
 
 add_executable(
     SharedCFTypeRefTest
     src/mac/SharedCFTypeRefTest.cpp
 )
-
 target_link_libraries(
     SharedCFTypeRefTest
     libhid
     gtest_main
 )
-
 gtest_discover_tests(
     SharedCFTypeRefTest
 )
@@ -34,30 +33,25 @@ add_executable(
     SharedCFRunLoopTest
     src/mac/SharedCFRunLoopTest.cpp
 )
-
 target_link_libraries(
     SharedCFRunLoopTest
     libhid
     gtest_main
 )
-
 gtest_discover_tests(
     SharedCFRunLoopTest
 )
-
 
 
 add_executable(
     HIDManagerTest
     src/HIDManagerTest.cpp
 )
-
 target_link_libraries(
     HIDManagerTest
     libhid
     gtest_main
 )
-
 gtest_discover_tests(
     HIDManagerTest
 )
@@ -66,13 +60,11 @@ add_executable(
     HidDeviceTest
     src/HidDeviceTest.cpp
 )
-
 target_link_libraries(
     HidDeviceTest
     libhid
     gtest_main
 )
-
 gtest_discover_tests(
     HidDeviceTest
 )
@@ -81,12 +73,10 @@ add_executable(
     ThreadSafeQueueTest
     src/ThreadSafeQueueTest.cpp
 )
-
 target_link_libraries(
     ThreadSafeQueueTest
     gtest_main
 )
-
 gtest_discover_tests(
     ThreadSafeQueueTest
 )
@@ -96,13 +86,11 @@ add_executable(
     ../src/G29.cpp
     src/G29Test.cpp
 )
-
 target_link_libraries(
     G29Test
     libhid
     gtest_main
 )
-
 gtest_discover_tests(
     G29Test
 )

@@ -3,8 +3,8 @@
 
 #include <gtest/gtest.h>
 
-#include "HidManager.h"
-#include "HidDevice.h"
+#include "libhid/HidManager.h"
+#include "libhid/HidDevice.h"
 
 
 static void printReport(std::vector<uint8_t> report) {

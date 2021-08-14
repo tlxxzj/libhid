@@ -4,7 +4,7 @@
 #include <vector>
 #include <cstdint>
 
-#include "HidManager.h"
+#include "libhid/HidManager.h"
 
 // https://opensource.logitech.com/opensource/images/6/6e/Logitech_Force_Feedback_Protocol_V1.6.pdf
 
