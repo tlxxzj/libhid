@@ -65,17 +65,3 @@ target_link_libraries(
 gtest_discover_tests(
     ThreadSafeQueueTest
 )
-
-add_executable(
-    G29Test
-    ../src/G29.cpp
-    src/G29Test.cpp
-)
-target_link_libraries(
-    G29Test
-    libhid
-    gtest_main
-)
-gtest_discover_tests(
-    G29Test
-)
