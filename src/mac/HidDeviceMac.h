@@ -7,7 +7,6 @@
 
 #include "libhid/HidDevice.h"
 #include "SharedCFTypeRef.h"
-#include "../ThreadSafeQueue.h"
 
 
 namespace libhid {

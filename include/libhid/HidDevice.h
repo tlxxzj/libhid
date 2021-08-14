@@ -7,8 +7,8 @@
 #include <vector>
 #include <memory>
 
-#include "ThreadSafeQueue.h"
-#include "HidReport.h"
+#include "libhid/ThreadSafeQueue.h"
+#include "libhid/HidReport.h"
 
 namespace libhid {
 

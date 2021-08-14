@@ -2,8 +2,8 @@
 #ifndef HIDMANAGER_H
 #define HIDMANAGER_H
 
-#include "HidDevice.h"
-#include "HidDeviceFilter.h"
+#include "libhid/HidDevice.h"
+#include "libhid/HidDeviceFilter.h"
 
 namespace libhid {
 

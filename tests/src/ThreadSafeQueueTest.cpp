@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "ThreadSafeQueue.h"
+#include "libhid/ThreadSafeQueue.h"
 
 TEST(ThreadSafeQueueTest, FunctionalTest) {
     using namespace libhid;
