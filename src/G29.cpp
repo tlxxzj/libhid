@@ -2,30 +2,29 @@
 
 namespace logitech {
     
-constexpr uint8_t kDpadMask = 0x0fu;
+constexpr const uint8_t kDpadMask = 0x0fu;
+constexpr const uint8_t kSquareMask = 0x10u; 
+constexpr const uint8_t kCrossMask = 0x20u;
+constexpr const uint8_t kCircleMask = 0x40u;
+constexpr const uint8_t kTriangleMask = 0x80u;
 
-constexpr uint8_t kSquareMask = 0x10u; 
-constexpr uint8_t kCrossMask = 0x20u;
-constexpr uint8_t kCircleMask = 0x40u;
-constexpr uint8_t kTriangleMask = 0x80u;
+constexpr const uint8_t kL1Mask = 0x01u;
+constexpr const uint8_t kR1Mask = 0x02u;
+constexpr const uint8_t kL2Mask = 0x04u;
+constexpr const uint8_t kR2Mask = 0x08u;
 
-constexpr uint8_t kL1Mask = 0x01u;
-constexpr uint8_t kR1Mask = 0x02u;
-constexpr uint8_t kL2Mask = 0x04u;
-constexpr uint8_t kR2Mask = 0x08u;
+constexpr const uint8_t kShareMask = 0x10u;
+constexpr const uint8_t kOptionsMask = 0x20u;
+constexpr const uint8_t kL3Mask = 0x40u;
+constexpr const uint8_t kR3Mask = 0x80u;
 
-constexpr uint8_t kShareMask = 0x10u;
-constexpr uint8_t kOptionsMask = 0x20u;
-constexpr uint8_t kL3Mask = 0x40u;
-constexpr uint8_t kR3Mask = 0x80u;
+constexpr const uint8_t kPsMask = 0x01u;
 
-constexpr uint8_t kPsMask = 0x01u;
-
-constexpr uint8_t kRedRotaryDialEnter = 0x01u;
-constexpr uint8_t kRedRotaryDialLeft = 0x02u;
-constexpr uint8_t kRedRotaryDialRight = 0x04u;
-constexpr uint8_t kMinusMask = 0x08u;
-constexpr uint8_t kPlusMask = 0x10u;
+constexpr const uint8_t kRedRotaryDialEnter = 0x01u;
+constexpr const uint8_t kRedRotaryDialLeft = 0x02u;
+constexpr const uint8_t kRedRotaryDialRight = 0x04u;
+constexpr const uint8_t kMinusMask = 0x08u;
+constexpr const uint8_t kPlusMask = 0x10u;
 
 
 struct LogitechG29InputReport {
@@ -174,6 +173,7 @@ LogitechG29State LogitechG29::getState() {
         .r1 = g29Report->r1Value(),
         .r2 = g29Report->r2Value(),
         .r3 = g29Report->r3Value(),
+        
         .plus = g29Report->plusValue(),
         .minus = g29Report->minusValue(),
 
@@ -184,6 +184,33 @@ LogitechG29State LogitechG29::getState() {
         .redDial = g29Report->redRotaryDialValue()
     };
     return state;
+}
+
+void LogitechG29::setRange(uint16_t range) {
+    range = std::clamp(range, minRange, maxRange);
+    libhid::HidReport report = {
+        0xf8,
+        0x81,
+        uint8_t(range & 0x00ff),
+        uint8_t((range & 0xff00) >> 8),
+        0x00,
+        0x00,
+        0x00
+    };
+    mDevice->sendOutputReport(report);
+}
+
+void LogitechG29::setLeds(uint8_t leds) {
+    libhid::HidReport report = {
+        0xf8,
+        0x12,
+        leds,
+        0x00,
+        0x00,
+        0x00,
+        0x00
+    };
+    mDevice->sendOutputReport(report);
 }
 
 

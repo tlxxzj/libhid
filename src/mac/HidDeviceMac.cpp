@@ -121,8 +121,8 @@ namespace libhid {
         m_max_feature_report_size = getIntProperty(CFSTR(kIOHIDMaxFeatureReportSizeKey));
     }
 
-    std::vector<uint8_t> HidDeviceMac::getFeatureReport(uint8_t report_id) {
-        std::vector<uint8_t> report(m_max_feature_report_size);
+    HidReport HidDeviceMac::getFeatureReport(uint8_t report_id) {
+        HidReport report(m_max_feature_report_size);
         CFIndex report_size = report.size();
         IOReturn result = IOHIDDeviceGetReport(m_device_ref, kIOHIDReportTypeFeature, report_id, report.data(), &report_size);
         if(result != kIOReturnSuccess) {
@@ -133,15 +133,15 @@ namespace libhid {
         return report;
     }
 
-    void HidDeviceMac::sendOutputReport(std::vector<uint8_t> report) {
+    void HidDeviceMac::sendOutputReport(HidReport report) {
         sendReport(kIOHIDReportTypeOutput, report);
     }
 
-    void HidDeviceMac::sendFeatureReport(std::vector<uint8_t> report) {
+    void HidDeviceMac::sendFeatureReport(HidReport report) {
         sendReport(kIOHIDReportTypeFeature, report);
     }
 
-    void HidDeviceMac::sendReport(IOHIDReportType report_type, std::vector<uint8_t> report) {
+    void HidDeviceMac::sendReport(IOHIDReportType report_type, HidReport report) {
         uint8_t report_id = report[0];
         uint8_t * report_data = report.data();
         size_t report_size = report.size();
@@ -165,7 +165,7 @@ namespace libhid {
                                            uint8_t * report_data,
                                            CFIndex report_size) {
         std::shared_ptr<HidDeviceMac> device = static_cast<HidDeviceMac *>(context)->shared_from_this();
-        std::vector<uint8_t> report;
+        HidReport report;
         if(report_id == 0) {
             report.resize(report_size + 1);
             report[0] = 0u;

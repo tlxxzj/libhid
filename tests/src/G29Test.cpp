@@ -35,7 +35,7 @@ TEST(G29Test, InputReportTest) {
     */
 
     auto g29 = logitech::LogitechG29(0);
-    while(true) {
+    while(false) {
         auto state = g29.getState();
         std::cerr<<"----------------------------"<<std::endl;
         std::cerr<<"Wheel: "<<state.wheel<<std::endl;
@@ -61,4 +61,10 @@ TEST(G29Test, InputReportTest) {
         std::cerr<<"Red Dial: "<<(int)state.redDial<<std::endl;
         std::cerr<<"Red Dial Enter: "<<(int)state.redDialEnter<<std::endl;
     }
+}
+
+TEST(G29Test, OutputReportTest) {
+    auto g29 = logitech::LogitechG29(0);
+    g29.setRange(500);
+    std::this_thread::sleep_for(std::chrono::seconds(10000));
 }

@@ -14,7 +14,7 @@ namespace libhid {
 
 class HidDevice {
 public:
-    using ReportCallback = std::function<void(std::vector<uint8_t> report)>;
+    using ReportCallback = std::function<void(HidReport report)>;
 
 protected:
     bool m_closed = true;
@@ -32,13 +32,13 @@ protected:
     size_t m_max_feature_report_size = 0;
 
     std::vector<uint8_t> m_input_report_buffer;
-    ThreadSafeQueue<std::vector<uint8_t>> m_pending_input_reports;
+    ThreadSafeQueue<HidReport> m_pending_input_reports;
 
     ReportCallback m_input_report_callback;
     
     HidDevice(bool closed): m_closed(closed) {};
 
-    virtual void processInputReport(std::vector<uint8_t> report);
+    virtual void processInputReport(HidReport report);
 
 public:
     
@@ -67,12 +67,12 @@ public:
     size_t maxOutputReportSize() { return m_max_output_report_size; }
     size_t maxFeatureReportSize() { return m_max_feature_report_size; }
 
-    virtual std::vector<uint8_t> getInputReport();
-    virtual bool tryGetInputReport(std::vector<uint8_t> & report, double timeout_in_seconds = 0);
+    virtual HidReport getInputReport();
+    virtual bool tryGetInputReport(HidReport & report, double timeout_in_seconds = 0);
     virtual void getInputReportAsync(ReportCallback callback);
-    virtual void sendOutputReport(std::vector<uint8_t> report) = 0;
-    virtual void sendFeatureReport(std::vector<uint8_t> report) = 0;
-    virtual std::vector<uint8_t> getFeatureReport(uint8_t report_id) = 0;
+    virtual void sendOutputReport(HidReport report) = 0;
+    virtual void sendFeatureReport(HidReport report) = 0;
+    virtual HidReport getFeatureReport(uint8_t report_id) = 0;
 };
 
 

@@ -33,17 +33,17 @@ public:
 
     bool close() override;
 
-    void sendOutputReport(std::vector<uint8_t> report) override;
+    void sendOutputReport(HidReport report) override;
     
-    std::vector<uint8_t> getFeatureReport(uint8_t report_id) override;
-    void sendFeatureReport(std::vector<uint8_t> report) override;
+    HidReport getFeatureReport(uint8_t report_id) override;
+    void sendFeatureReport(HidReport report) override;
 
 protected:
     SharedCFTypeRef<CFTypeRef> getProperty(CFStringRef key, bool retain = false);
     int64_t getIntProperty(CFStringRef key);
     std::string getStringProperty(CFStringRef key);
     
-    void sendReport(IOHIDReportType report_type, std::vector<uint8_t> report);
+    void sendReport(IOHIDReportType report_type, HidReport report);
     
     void collectProperty();
 

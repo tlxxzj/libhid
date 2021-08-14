@@ -6,6 +6,7 @@
 
 #include "HidManager.h"
 
+// https://opensource.logitech.com/opensource/images/6/6e/Logitech_Force_Feedback_Protocol_V1.6.pdf
 
 namespace logitech {
 
@@ -45,12 +46,19 @@ public:
     static constexpr const int64_t vendorId = 0x046d;
     static constexpr const int64_t productId = 0xc260;
 
+    static constexpr const uint16_t minRange = 40;
+    static constexpr const uint16_t maxRange = 900;
+
 protected:
     std::shared_ptr<libhid::HidDevice> mDevice;
+    //void sendCommand(uint8_t cmd[]);
 
 public:
     LogitechG29(int32_t index = 0);
     LogitechG29State getState();
+    void setRange(uint16_t range);
+    void setAutocenter();
+    void setLeds(uint8_t leds);
 };
 
 }
