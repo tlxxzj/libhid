@@ -7,8 +7,6 @@ project(libhid VERSION 0.0.1)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
-
 set(LIBHID_PROJECT_NAME libhid)
 
 add_library(
@@ -19,6 +17,12 @@ add_library(
 set_target_properties(
     ${LIBHID_PROJECT_NAME}
     PROPERTIES PREFIX ""
+)
+
+target_include_directories(
+    ${LIBHID_PROJECT_NAME}
+    PUBLIC
+    "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
 if(APPLE) 
