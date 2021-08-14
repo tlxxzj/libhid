@@ -61,5 +61,4 @@ endif()
 
 
 # add tests
-enable_testing()
 add_subdirectory(tests)
