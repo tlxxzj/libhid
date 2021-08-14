@@ -13,8 +13,6 @@ FetchContent_MakeAvailable(googletest)
 
 include(GoogleTest)
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../include")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../src")
 
 add_executable(
     SharedCFTypeRefTest
@@ -61,6 +59,7 @@ add_executable(
 )
 target_link_libraries(
     ThreadSafeQueueTest
+    libhid
     gtest_main
 )
 gtest_discover_tests(
